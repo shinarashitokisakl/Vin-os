@@ -5,4 +5,4 @@
   ╚████╔╝ ██║██║ ╚████║
    ╚═══╝  ╚═╝╚═╝  ╚═══╝
                         
-   Custom Linux CUI with Anime Aesthetics
+   Custom Linux CUI made by gabut vin
