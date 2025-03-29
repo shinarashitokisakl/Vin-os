@@ -1,0 +1,5 @@
+# Kali Linux repositories for VIN OS
+# Only uncomment these lines if you know what you're doing!
+
+# Main Kali repository
+# deb http://http.kali.org/kali kali-rolling main non-free contrib

@@ -1,0 +1,68 @@
+#!/bin/bash
+# VIN OS Main Command Launcher
+# This script serves as the main entry point for VIN OS commands
+
+# Set current directory to the script location
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+cd "$SCRIPT_DIR/.."
+
+# Check if we're running in Termux
+if [ -d "/data/data/com.termux/files/usr" ]; then
+    export VINOS_DIR="/data/data/com.termux/files/usr/share/vinos"
+    export VINOS_CONFIG="/data/data/com.termux/files/usr/etc/vinos"
+    export TERMUX_MODE=true
+else
+    export VINOS_DIR="$PWD/usr/share/vinos"
+    export VINOS_CONFIG="$PWD/etc/vinos"
+    export TERMUX_MODE=false
+fi
+
+# Check if VIN OS is installed
+if [ ! -f "$VINOS_DIR/vinos.sh" ]; then
+    # Try to run the installer if VIN OS is not installed
+    if [ -f "$PWD/usr/share/vinos/install.sh" ]; then
+        echo "VIN OS not fully installed. Running installer..."
+        if [ "$TERMUX_MODE" = true ]; then
+            bash "$PWD/usr/share/vinos/termux_setup.sh"
+        else
+            bash "$PWD/usr/share/vinos/install.sh"
+        fi
+    else
+        echo "VIN OS is not installed. Please run the installer first."
+        exit 1
+    fi
+fi
+
+# Check argument count
+if [ "$#" -lt 1 ]; then
+    echo "Usage: vin [command]"
+    echo "Try 'vin senpai' to launch VIN OS interface"
+    exit 1
+fi
+
+# Process the command
+case "$1" in
+    "senpai")
+        # Launch VIN OS interface
+        bash "$VINOS_DIR/vinos.sh"
+        ;;
+    "install")
+        # Run the installer
+        if [ "$TERMUX_MODE" = true ]; then
+            bash "$VINOS_DIR/termux_setup.sh"
+        else
+            bash "$VINOS_DIR/install.sh"
+        fi
+        ;;
+    "help")
+        # Show help information
+        bash "$VINOS_DIR/commands/help.sh"
+        ;;
+    *)
+        echo "Unknown command: $1"
+        echo "Try 'vin help' for more information"
+        exit 1
+        ;;
+esac
+
+exit 0
