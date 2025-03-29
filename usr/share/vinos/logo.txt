@@ -5,4 +5,4 @@
   ╚████╔╝ ██║██║ ╚████║
    ╚═══╝  ╚═╝╚═╝  ╚═══╝
                         
-   Custom Linux CUI made by gabut vin
+   Custom Linux CUI made by shinarashitokisakl 
